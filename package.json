@@ -1,0 +1,23 @@
+{
+  "name": "pump-holder-tracker",
+  "version": "1.0.0",
+  "description": "Track and store pump.fun PUMP token holders on Solana",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "solana",
+    "pump",
+    "token",
+    "holders",
+    "blockchain"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@solana/web3.js": "^1.87.6",
+    "dotenv": "^16.6.1"
+  }
+}
