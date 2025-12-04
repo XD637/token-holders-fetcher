@@ -1,6 +1,6 @@
 # Solana Token Holder Tracker
 
-Track and analyze holders of any Solana SPL token with advanced filtering capabilities. Originally built for pump.fun PUMP token, but works with **any Solana token**.
+Track and analyze holders of any Solana SPL token with advanced filtering capabilities. Works with **any Solana token**.
 
 ## Features
 
