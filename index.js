@@ -141,16 +141,28 @@ class PumpHolderTracker {
       holders: topHolders
     };
 
-    // Save filtered holders
+    // Save filtered holders as JSON
     const filename = `holders_filtered_${timestamp}.json`;
     const filepath = path.join(this.dataDir, filename);
     await fs.writeFile(filepath, JSON.stringify(data, null, 2));
     console.log(`\nFiltered holders saved to: ${filepath}`);
     
-    // Save as latest filtered
+    // Save as latest filtered JSON
     const latestPath = path.join(this.dataDir, 'latest_filtered.json');
     await fs.writeFile(latestPath, JSON.stringify(data, null, 2));
     console.log(`Latest filtered data saved to: ${latestPath}`);
+    
+    // Save as CSV
+    const csvFilename = `holders_filtered_${timestamp}.csv`;
+    const csvFilepath = path.join(this.dataDir, csvFilename);
+    const csvContent = this.convertToCSV(topHolders);
+    await fs.writeFile(csvFilepath, csvContent);
+    console.log(`CSV file saved to: ${csvFilepath}`);
+    
+    // Save as latest CSV
+    const latestCsvPath = path.join(this.dataDir, 'latest_filtered.csv');
+    await fs.writeFile(latestCsvPath, csvContent);
+    console.log(`Latest CSV saved to: ${latestCsvPath}`);
     
     // Save excluded wallets for review
     if (includeFiltered && (excluded.services.length > 0 || excluded.whales.length > 0)) {
@@ -173,6 +185,18 @@ class PumpHolderTracker {
     }
 
     return filepath;
+  }
+
+  convertToCSV(holders) {
+    // CSV header
+    const header = 'Rank,Address,Balance (Raw),Balance (Formatted)\n';
+    
+    // CSV rows
+    const rows = holders.map((holder, index) => {
+      return `${index + 1},"${holder.address}","${holder.balance}","${holder.balanceFormatted}"`;
+    }).join('\n');
+    
+    return header + rows;
   }
 
   async getStatistics() {
